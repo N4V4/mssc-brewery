@@ -1,6 +1,8 @@
 package guru.springframework.msscbrewery.services;
 
-import guru.springframework.msscbrewery.web.model.BeerDTO;
+import guru.springframework.msscbrewery.web.model.BeerDto;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -9,27 +11,35 @@ import java.util.UUID;
  * Created by jt on 2019-04-20.
  */
 @Service
+@Slf4j
 public class BeerServiceImpl implements BeerService {
     @Override
-    public BeerDTO getBeerById(UUID beerId) {
-        return BeerDTO.builder().id(UUID.randomUUID())
+    public BeerDto getBeerById(UUID beerId) {
+        return BeerDto.builder().id(UUID.randomUUID())
                 .beerName("Galaxy Cat")
                 .beerStyle("Pale Ale")
                 .build();
     }
 
 	@Override
-	public BeerDTO saveNewBeer(BeerDTO beerDTO) {
+	public BeerDto saveNewBeer(BeerDto beerDto) {
 		// TODO Auto-generated method stub
-		return BeerDTO.builder().id(UUID.randomUUID())
+		return BeerDto.builder().id(UUID.randomUUID())
                 .beerName("Nastro Azzurro")
                 .beerStyle("Bionda")
                 .build();
 	}
 
 	@Override
-	public void updateBeer(UUID beerId, BeerDTO beerDTO) {
+	public void updateBeer(UUID beerId, BeerDto beerDto) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteBeer(UUID beerID) {
+		// TODO Auto-generated method stub
+		log.debug("Beer removed " + beerID);
 		
 	}
 }
