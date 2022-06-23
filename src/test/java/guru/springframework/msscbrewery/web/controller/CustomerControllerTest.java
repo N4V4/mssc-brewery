@@ -19,8 +19,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import guru.springframework.msscbrewery.services.CustomerService;
@@ -59,12 +61,30 @@ public class CustomerControllerTest {
 	@Test
 	public void createCustomer() throws Exception {
 		
-		when(customerService.createUser(customerDto)).thenReturn(customerDto);
+		when(customerService.createCustomer(customerDto)).thenReturn(customerDto);
 		
-		mockMvc.perform(MockMvcRequestBuilders.post("/createCustomer"))
-		//.accept(MediaType.APPLICATION_JSON))
-		//.andExpect(content().json(objectMapper.writeValueAsString(customerDto)))
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/customer/createCustomer")
+		.accept(MediaType.APPLICATION_JSON)
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(objectMapper.writeValueAsString(customerDto)))
 		.andExpect(MockMvcResultMatchers.status().isCreated());
 	}
+	
+	@Test
+	public void updateCustomer() throws JsonProcessingException, Exception {
+
+		CustomerDto updateCustomer = CustomerDto.builder().customerId(UUID.randomUUID()).customerName("Roa").build();
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/customer/" + customerDto.getCustomerId().toString())
+				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(updateCustomer))).andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+
+	}
+	
+	@Test
+	public void deleteCustomer() {
+		
+	}
+	
 
 }
