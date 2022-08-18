@@ -45,7 +45,7 @@ public class CustomerControllerTest {
 
 	@Before
 	public void contextLoads() {
-		customerDto = CustomerDto.builder().customerId(UUID.randomUUID()).customerName("Alessandro").build();
+		customerDto = CustomerDto.builder().customerId(UUID.randomUUID()).customerName("Mandricardo").build();
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class CustomerControllerTest {
 		
 		when(customerService.createCustomer(customerDto)).thenReturn(customerDto);
 		
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/customer/createCustomer")
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/customer")
 		.accept(MediaType.APPLICATION_JSON)
 		.contentType(MediaType.APPLICATION_JSON)
 		.content(objectMapper.writeValueAsString(customerDto)))
