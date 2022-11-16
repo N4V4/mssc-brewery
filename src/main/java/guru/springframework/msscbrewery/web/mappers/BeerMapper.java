@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import guru.springframework.msscbrewery.domain.Beer;
 import guru.springframework.msscbrewery.web.model.BeerDto;
 
-@Mapper(uses = DataMapper.class)
+//@Mapper(uses = DataMapper.class)
 public interface BeerMapper {
 	
 	BeerDto beerDtoToBeer(BeerDto beerDto);
